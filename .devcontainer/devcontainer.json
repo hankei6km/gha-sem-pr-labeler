@@ -1,0 +1,38 @@
+{
+  "name": "gha-sem-to-pr-label",
+  "dockerFile": "Dockerfile",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-contrib/features/actionlint:1": {}
+  },
+
+  "runArgs": [],
+
+  "remoteUser": "vscode",
+  "remoteEnv": {},
+  "postStartCommand": [],
+  "postCreateCommand": [],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        // formatting
+        "esbenp.prettier-vscode",
+        // pull request
+        "GitHub.vscode-pull-request-github",
+        "github.vscode-github-actions",
+        // shell(run in .yaml)
+        "rogalmic.bash-debug",
+        "mads-hartmann.bash-ide-vscode"
+      ],
+      "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[yaml]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
+      }
+    }
+  }
+}
