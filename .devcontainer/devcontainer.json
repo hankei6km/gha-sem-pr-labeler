@@ -1,0 +1,30 @@
+{
+  "name": "gha-sem-to-pr-label",
+  "dockerFile": "Dockerfile",
+  "features": {
+    "ghcr.io/devcontainers/features/common-utils:2": {
+      "username": "vscode"
+    },
+    "ghcr.io/devcontainers/features/github-cli:1": {},
+    "ghcr.io/devcontainers-contrib/features/actionlint:1": {}
+  },
+
+  "runArgs": [],
+
+  "remoteUser": "vscode",
+  "remoteEnv": {},
+  "postStartCommand": [],
+  "postCreateCommand":[],
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "GitHub.vscode-pull-request-github",
+        "github.vscode-github-actions",
+        "rogalmic.bash-debug",
+        "mads-hartmann.bash-ide-vscode"
+      ],
+      "settings": {
+      }
+    }
+  }
+}
