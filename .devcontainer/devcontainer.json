@@ -14,16 +14,24 @@
   "remoteUser": "vscode",
   "remoteEnv": {},
   "postStartCommand": [],
-  "postCreateCommand":[],
+  "postCreateCommand": [],
   "customizations": {
     "vscode": {
       "extensions": [
+        // formatting
+        "esbenp.prettier-vscode",
+        // pull request
         "GitHub.vscode-pull-request-github",
         "github.vscode-github-actions",
+        // shell(run in .yaml)
         "rogalmic.bash-debug",
         "mads-hartmann.bash-ide-vscode"
       ],
       "settings": {
+        "editor.defaultFormatter": "esbenp.prettier-vscode",
+        "[yaml]": {
+          "editor.defaultFormatter": "esbenp.prettier-vscode"
+        }
       }
     }
   }
