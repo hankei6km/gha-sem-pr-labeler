@@ -1,0 +1,107 @@
+name: "test"
+on:
+  pull_request:
+  push:
+    branches:
+      - "main"
+    tags:
+      - "!v*"
+
+jobs:
+  test:
+    permissions:
+      contents: read
+      pull-requests: write
+    runs-on: ubuntu-latest
+    # PR に対する操作は同時に行わないようにする.
+    concurrency:
+      group: test_tareget_pr
+      cancel-in-progress: false
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: setup labels of test PR
+        run: |
+          # cleanup labels from the PR.
+          # (Assuming that the label does not contain line breaks)
+          gh pr view  --json labels --jq '.labels[].name' -R "${REPO}" "${PR_NUM}" | xargs -I{} gh pr edit --remove-label "{}" -R "${REPO}" "${PR_NUM}"
+          # add labels to the PR.
+          gh pr edit --add-label "help wanted" -R "${REPO}" "${PR_NUM}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUM: ${{ vars.TEST_TARGET_PR_NUM }}
+
+      - name: 'add "sem-pr: test" label to the PR by "test" type'
+        id: add-label
+        uses: ./
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          pr_num: ${{ vars.TEST_TARGET_PR_NUM }}
+          type: "test"
+          is_breaking_change: "false"
+        continue-on-error: true
+
+      - name: check labels of test PR
+        id: check-label
+        run: |
+          LABELS="$(gh pr view  --json labels --jq '.labels[].name' -R "${REPO}" "${PR_NUM}")"
+          test "$(wc -l <<< "${LABELS}")" -eq 2
+          grep -e "^sem-pr: test$" <<< "${LABELS}"
+          grep -e "^help wanted$" <<< "${LABELS}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUM: ${{ vars.TEST_TARGET_PR_NUM }}
+        continue-on-error: true
+
+      - name: 'add "sem-pr: feat" label to the PR by "feat" type(is breaking change is true)'
+        id: add-label-and-breaking-change
+        uses: ./
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          pr_num: ${{ vars.TEST_TARGET_PR_NUM }}
+          type: "feat"
+          is_breaking_change: "true"
+        continue-on-error: true
+
+      - name: check labels of test PR
+        id: check-label-and-breaking-change
+        run: |
+          LABELS="$(gh pr view  --json labels --jq '.labels[].name' -R "${REPO}" "${PR_NUM}")"
+          test "$(wc -l <<< "${LABELS}")" -eq 3
+          grep -e "^sem-pr: feat$" <<< "${LABELS}"
+          grep -e "^sem-pr: breaking change$" <<< "${LABELS}"
+          grep -e "^help wanted$" <<< "${LABELS}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUM: ${{ vars.TEST_TARGET_PR_NUM }}
+        continue-on-error: true
+
+      - name: cleanup labels of test PR
+        run: |
+          # cleanup labels from the PR.
+          # (Assuming that the label does not contain line breaks)
+          gh pr view  --json labels --jq '.labels[].name' -R "${REPO}" "${PR_NUM}" | xargs -I{} gh pr edit --remove-label "{}" -R "${REPO}" "${PR_NUM}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUM: ${{ vars.TEST_TARGET_PR_NUM }}
+
+      # 各 step の状況を確認する.
+      # step を追加したらここにも追加する.
+      # (おそらく忘れる、何か対策は？)
+      - name: assert
+        run: |
+          test "${ADD_LABEL}" = "success" && echo "ADD_LABEL is success"
+          test "${CHECK_LABEL}" = "success" && echo "CHECK_LABEL is success"
+          test "${ADD_LABEL_AND_BREAKING_CHANGE}" = "success" && echo "ADD_LABEL_AND_BREAKING_CHANGE is success"
+          test "${CHECK_LABEL_AND_BREAKING_CHANGE}" = "success" && echo "CHECK_LABEL_AND_BREAKING_CHANGE is success"
+        env:
+          ADD_LABEL: ${{ steps.add-label.outcome }}
+          CHECK_LABEL: ${{ steps.check-label.outcome }}
+          ADD_LABEL_AND_BREAKING_CHANGE: ${{ steps.add-label-and-breaking-change.outcome }}
+          CHECK_LABEL_AND_BREAKING_CHANGE: ${{ steps.check-label-and-breaking-change.outcome }}
