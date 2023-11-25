@@ -81,6 +81,29 @@ jobs:
           PR_NUM: ${{ vars.TEST_TARGET_PR_NUM }}
         continue-on-error: true
 
+      - name: 'fail to add "sem-pr: foo" label to the PR by "foo" type'
+        id: fail-add-label
+        uses: ./
+        with:
+          github-token: ${{ secrets.GITHUB_TOKEN }}
+          repo: ${{ github.repository }}
+          pr_num: ${{ vars.TEST_TARGET_PR_NUM }}
+          type: "foo"
+          is_breaking_change: "false"
+        continue-on-error: true
+
+      - name: check labels of test PR
+        id: check-label-faile-add-label
+        run: |
+          LABELS="$(gh pr view  --json labels --jq '.labels[].name' -R "${REPO}" "${PR_NUM}")"
+          test "$(wc -l <<< "${LABELS}")" -eq 1
+          grep -e "^help wanted$" <<< "${LABELS}"
+        env:
+          GH_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          REPO: ${{ github.repository }}
+          PR_NUM: ${{ vars.TEST_TARGET_PR_NUM }}
+        continue-on-error: true
+
       - name: cleanup labels of test PR
         run: |
           # cleanup labels from the PR.
@@ -100,8 +123,12 @@ jobs:
           test "${CHECK_LABEL}" = "success" && echo "CHECK_LABEL is success"
           test "${ADD_LABEL_AND_BREAKING_CHANGE}" = "success" && echo "ADD_LABEL_AND_BREAKING_CHANGE is success"
           test "${CHECK_LABEL_AND_BREAKING_CHANGE}" = "success" && echo "CHECK_LABEL_AND_BREAKING_CHANGE is success"
+          test "${FAIL_ADD_LABEL}" = "failure" && echo "FAIL_ADD_LABEL is failure(It is expected)"
+          test "${CHECK_LABEL_FAIL_ADD_LABEL}" = "success" && echo "CHECK_LABEL_FAIL_ADD_LABEL is success"
         env:
           ADD_LABEL: ${{ steps.add-label.outcome }}
           CHECK_LABEL: ${{ steps.check-label.outcome }}
           ADD_LABEL_AND_BREAKING_CHANGE: ${{ steps.add-label-and-breaking-change.outcome }}
           CHECK_LABEL_AND_BREAKING_CHANGE: ${{ steps.check-label-and-breaking-change.outcome }}
+          FAIL_ADD_LABEL: ${{ steps.fail-add-label.outcome }}
+          CHECK_LABEL_FAIL_ADD_LABEL: ${{ steps.check-label-faile-add-label.outcome }}
