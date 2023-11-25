@@ -1,4 +1,4 @@
-name: "sem-to-pr-label"
+name: "sem-pr-labeler"
 description: "GitHub Action to relabel by the type of semantic pr"
 inputs:
   github-token:

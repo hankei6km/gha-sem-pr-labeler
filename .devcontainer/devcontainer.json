@@ -1,5 +1,5 @@
 {
-  "name": "gha-sem-to-pr-label",
+  "name": "gha-sem-pr-labeler",
   "dockerFile": "Dockerfile",
   "features": {
     "ghcr.io/devcontainers/features/common-utils:2": {
