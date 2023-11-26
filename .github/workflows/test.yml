@@ -36,7 +36,7 @@ jobs:
         id: add-label
         uses: ./
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
           pr_num: ${{ vars.TEST_TARGET_PR_NUM }}
           type: "test"
@@ -60,7 +60,7 @@ jobs:
         id: add-label-and-breaking-change
         uses: ./
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
           pr_num: ${{ vars.TEST_TARGET_PR_NUM }}
           type: "feat"
@@ -85,7 +85,7 @@ jobs:
         id: fail-add-label
         uses: ./
         with:
-          github-token: ${{ secrets.GITHUB_TOKEN }}
+          github_token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
           pr_num: ${{ vars.TEST_TARGET_PR_NUM }}
           type: "foo"
