@@ -1,7 +1,7 @@
 name: "sem-pr-labeler"
 description: "GitHub Action to relabel by the type of semantic pr"
 inputs:
-  github-token:
+  github_token:
     description: "GITHUB_TOKEN"
     required: true
     default: ""
