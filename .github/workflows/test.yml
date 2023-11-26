@@ -119,12 +119,12 @@ jobs:
       # (おそらく忘れる、何か対策は？)
       - name: assert
         run: |
-          test "${ADD_LABEL}" = "success" && echo "ADD_LABEL is success"
-          test "${CHECK_LABEL}" = "success" && echo "CHECK_LABEL is success"
-          test "${ADD_LABEL_AND_BREAKING_CHANGE}" = "success" && echo "ADD_LABEL_AND_BREAKING_CHANGE is success"
-          test "${CHECK_LABEL_AND_BREAKING_CHANGE}" = "success" && echo "CHECK_LABEL_AND_BREAKING_CHANGE is success"
-          test "${FAIL_ADD_LABEL}" = "failure" && echo "FAIL_ADD_LABEL is failure(It is expected)"
-          test "${CHECK_LABEL_FAIL_ADD_LABEL}" = "success" && echo "CHECK_LABEL_FAIL_ADD_LABEL is success"
+          test "${ADD_LABEL}" = "success"; echo "ADD_LABEL is success"
+          test "${CHECK_LABEL}" = "success"; echo "CHECK_LABEL is success"
+          test "${ADD_LABEL_AND_BREAKING_CHANGE}" = "success"; echo "ADD_LABEL_AND_BREAKING_CHANGE is success"
+          test "${CHECK_LABEL_AND_BREAKING_CHANGE}" = "success"; echo "CHECK_LABEL_AND_BREAKING_CHANGE is success"
+          test "${FAIL_ADD_LABEL}" = "failure"; echo "FAIL_ADD_LABEL is failure(It is expected)"
+          test "${CHECK_LABEL_FAIL_ADD_LABEL}" = "success"; echo "CHECK_LABEL_FAIL_ADD_LABEL is success"
         env:
           ADD_LABEL: ${{ steps.add-label.outcome }}
           CHECK_LABEL: ${{ steps.check-label.outcome }}
