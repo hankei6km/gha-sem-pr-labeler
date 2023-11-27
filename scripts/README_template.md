@@ -4,24 +4,6 @@ GitHub Action to relabel by the type of semantic pr
 
 <!-- INSERT -->
 
-## Inputs
-
-| parameter | description | required | default |
-| --- | --- | --- | --- |
-| github_token | GITHUB_TOKEN | `true` |  |
-| repo | repository | `true` |  |
-| pr_num | pr number | `true` |  |
-| label_prefix | the value to prepend the label | `false` | sem-pr:  |
-| type | type of sematic pr | `true` |  |
-| is_breaking_change | is pr breaking change('true' or 'false') | `true` | false |
-
-
-## Runs
-
-This action is a `composite` action.
-
-
-
 ## Example usage
 
 Example of relabeling a pull request based on the Scope included in the PR title:
