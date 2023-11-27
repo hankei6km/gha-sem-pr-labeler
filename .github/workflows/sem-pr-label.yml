@@ -11,7 +11,7 @@ jobs:
     steps:
       - name: info
         id: info
-        uses: hankei6km/gha-sem-from-title@main
+        uses: hankei6km/gha-sem-from-title@v0
         with:
           title: ${{ github.event.pull_request.title }}
       - name: edit
