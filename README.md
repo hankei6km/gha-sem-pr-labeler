@@ -29,7 +29,10 @@ Example of relabeling a pull request based on the Scope included in the PR title
 ```yaml
 name: "relabel by sem pr"
 on:
-  - pull_request_target
+  pull_request_target:
+    types:
+      - opened
+      - edited
 
 jobs:
   relabel:
