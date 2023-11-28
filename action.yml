@@ -79,3 +79,7 @@ runs:
         TYPE: ${{ inputs.type }}
         IS_BREAKING_CHANGE: ${{ inputs.is_breaking_change }}
       shell: bash
+
+branding:
+  icon: "edit-3"
+  color: "blue"
