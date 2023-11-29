@@ -16,11 +16,6 @@ jobs:
       # action.yml
       - name: Check action.yml
         run: |
-          # null 文字を step.*.outputs で渡せるか不明なので step 内で完結させる(action は使わない)
-          mkdir "${HOME}/tmp"
-          export YQ_BIN="${HOME}/tmp/yq"
-          wget https://github.com/mikefarah/yq/releases/latest/download/yq_linux_amd64 -q -O "${YQ_BIN}"
-          chmod +x  "${YQ_BIN}"
           scripts/lint-action.sh
         shell: bash
 
