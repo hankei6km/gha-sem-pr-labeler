@@ -2,6 +2,8 @@
 
 set -e
 
+command -v yq
+
 echo  '- add "sem-pr: test" label to the PR by "test" type'
 RES="$(\
   LABELS="test,sem-pr: fix" \
