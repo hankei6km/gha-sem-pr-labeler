@@ -18,7 +18,7 @@ jobs:
         with:
           title: ${{ github.event.pull_request.title }}
       - name: edit
-        uses: hankei6km/gha-sem-pr-labeler@v0
+        uses: hankei6km/gha-sem-pr-labeler@main
         with:
           github_token: ${{ secrets.GITHUB_TOKEN }}
           repo: ${{ github.repository }}
