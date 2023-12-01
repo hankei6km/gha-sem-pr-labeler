@@ -6,7 +6,14 @@ GitHub Action to relabel by the type of semantic pr
 
 ## Example usage
 
-Example of relabeling a pull request based on the Scope included in the PR title:
+Example of relabeling a pull request based on the Type included in the PR title:
+
+> [!NOTE]
+>
+> This action does not add a new label. Make sure to create a label in before using action.
+>
+> - [Managing labels - GitHub Docs](https://docs.github.com/en/issues/using-labels-and-milestones-to-track-work/managing-labels)
+> - [init-labels.sh](scripts/init-labels.sh) is a sample script for creating labels.
 
 ```yaml
 name: "relabel by sem pr"
