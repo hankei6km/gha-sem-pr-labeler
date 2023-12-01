@@ -24,7 +24,7 @@ This action is a `composite` action.
 
 ## Example usage
 
-Example of relabeling a pull request based on the Scope included in the PR title:
+Example of relabeling a pull request based on the Type included in the PR title:
 
 ```yaml
 name: "relabel by sem pr"
