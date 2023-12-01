@@ -16,7 +16,7 @@ LABELS_TEXT_COLOR_DESCRIPTIOM=(
     "sem-pr: ci,#b0b0b0,Continuous integration changes"
     "sem-pr: chore,#b0b0b0,Chores and miscellaneous tasks"
     "sem-pr: revert,#d73a4a,Reverts previous changes"
-    "sem-pr: breaking change,#e99695, This change may affect existing functionality or APIs"
+    "sem-pr: breaking change,#e99695,This change may affect existing functionality or APIs"
 )
 
 for label_color_description in "${LABELS_TEXT_COLOR_DESCRIPTIOM[@]}"; do
