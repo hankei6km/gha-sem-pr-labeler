@@ -1,6 +1,6 @@
 #!/bin/bash
 
-# This script can be used when initializing labels for repositories that use gha-sem-pr-type-labels.
+# This script can be used when initializing labels for repositories that use gha-sem-pr-labeler.
 
 # set -e
 
