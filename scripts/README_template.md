@@ -2,7 +2,11 @@
 
 GitHub Action to relabel by the type of semantic pr
 
-<!-- INSERT -->
+<!-- action-docs-inputs source="action.yml" -->
+
+<!-- action-docs-outputs source="action.yml" -->
+
+<!-- action-docs-runs source="action.yml" -->
 
 ## Example usage
 
