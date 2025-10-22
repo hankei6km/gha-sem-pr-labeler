@@ -2,25 +2,22 @@
 
 GitHub Action to relabel by the type of semantic pr
 
-<!-- INSERT -->
-
 ## Inputs
 
-| parameter | description | required | default |
+| name | description | required | default |
 | --- | --- | --- | --- |
-| github_token | GITHUB_TOKEN | `true` |  |
-| repo | repository | `true` |  |
-| pr_num | pr number | `true` |  |
-| label_prefix | the value to prepend the label | `false` | sem-pr:  |
-| type | type of sematic pr | `true` |  |
-| is_breaking_change | is pr breaking change('true' or 'false') | `true` | false |
+| `github_token` | <p>GITHUB_TOKEN</p> | `true` | `""` |
+| `repo` | <p>repository</p> | `true` | `""` |
+| `pr_num` | <p>pr number</p> | `true` | `""` |
+| `label_prefix` | <p>the value to prepend the label</p> | `false` | `sem-pr: ` |
+| `type` | <p>type of sematic pr</p> | `true` | `""` |
+| `is_breaking_change` | <p>is pr breaking change('true' or 'false')</p> | `true` | `false` |
+
 
 
 ## Runs
 
 This action is a `composite` action.
-
-
 
 ## Example usage
 
